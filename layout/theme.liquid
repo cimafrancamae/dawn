@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
+ {%- render 'ecom_header' -%}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -296,7 +297,8 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-  </head>
+    {% render 'rapid-search-settings' %}
+{% include 'pagefly-app-header' %}</head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
@@ -363,6 +365,18 @@
         recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
         countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
       };
+
+      //🍎 remove watermark
+      function checkForWaterMark(){
+        let menu = document.querySelector('.tmenu-watermark');
+        if(menu){
+          menu.style.display = 'none';
+          clearInterval(watermarkCheck);
+        }
+      }
+      
+      let watermarkCheck = setInterval(checkForWaterMark, 500);
+      //end 
     </script>
 
     {%- if settings.predictive_search_enabled -%}
@@ -372,5 +386,57 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-  </body>
+
+    <!-- 🍎 tester discounts -->
+    <script src="{{ 'tester-discount.js' | asset_url }}" defer></script>
+    <script src="{{ 'tester-hide-qty.js' | asset_url }}" defer></script>
+    <!-- Floating discount message -->
+    <div id="discount-message" style="display: none;"></div>
+    
+    <!-- Add CSS for Floating Banner -->
+    <style>
+    #discount-message {
+        position: fixed;
+        bottom: 20px; /* Distance from the bottom */
+        right: 5px;
+        /* transform: translateX(-50%); */
+        background: #f4eedf;
+        color: #000;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+    
+    /* Button Styling */
+    #discount-message button {
+        background: #fff;
+        color: #ff9800;
+        border: none;
+        padding: 8px 15px;
+        margin-top: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    #discount-message button:hover {
+        background: #f8f8f8;
+    }
+
+    .discount-link {
+      color: #DAA520;
+      border: 1px
+      background: #f8f8f8;
+    }
+
+    .discount-link:hover {
+        color: orange;
+    }
+      
+    </style>
+  {%- render "ecom_footer"-%}</body>
 </html>
