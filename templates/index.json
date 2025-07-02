@@ -14,6 +14,7 @@
       "blocks": {
         "heading": {
           "type": "heading",
+          "disabled": true,
           "settings": {
             "heading": "Image banner",
             "heading_size": "h0"
@@ -21,6 +22,7 @@
         },
         "text": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "Give customers details about the banner image(s) or content on the template.",
             "text_style": "body"
@@ -29,7 +31,7 @@
         "button": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Shop all",
+            "button_label_1": "Discover Dan Brown's Thrilling Collection at The Little Bookshop PH",
             "button_link_1": "shopify://collections/all",
             "button_style_secondary_1": true,
             "button_label_2": "",
@@ -43,8 +45,8 @@
         "text",
         "button"
       ],
-      "disabled": true,
       "settings": {
+        "image": "shopify://shop_images/dan-brown-collection-homepage-banner.png",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "image_behavior": "none",
