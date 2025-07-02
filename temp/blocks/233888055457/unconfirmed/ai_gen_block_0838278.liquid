@@ -1,6 +1,369 @@
+{% doc %}
+  @prompt
+    Create a cozy homepage banner for a bookshop with warm, inviting colors and typography. Include space for a welcoming headline, subtitle text, and a call-to-action button. The design should evoke the feeling of a comfortable reading nook with soft, earthy tones and book-themed elements that reflect a Philippine bookshop's cozy atmosphere.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .cozy-banner-{{ ai_gen_id }} {
+    position: relative;
+    padding: {{ block.settings.padding }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .cozy-banner__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: {{ block.settings.layout }};
+    align-items: center;
+    gap:30px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cozy-banner__content-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .cozy-banner__image-wrapper-{{ ai_gen_id }} {
+    flex: 1;
+    position: relative;
+    min-height: 300px;
+  }
+
+  .cozy-banner__image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .cozy-banner__heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.heading_color }};
+    margin-bottom: 15px;
+    line-height: 1.2;
+  }
+
+  .cozy-banner__subheading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+
+  .cozy-banner__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .cozy-banner__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  .cozy-banner__decoration-{{ ai_gen_id }} {
+    position: absolute;
+    z-index: 1;
+    opacity: {{ block.settings.decoration_opacity | divided_by: 100.0 }};
+  }
+
+  .cozy-banner__decoration-book1-{{ ai_gen_id }} {
+    top: 20px;
+    right: 10%;
+    width: 50px;
+    height: 60px;
+    transform: rotate(15deg);
+  }
+
+  .cozy-banner__decoration-book2-{{ ai_gen_id }} {
+    bottom: 30px;
+    left: 10%;
+    width: 60px;
+    height: 45px;
+    transform: rotate(-10deg);
+  }
+
+  .cozy-banner__decoration-leaf-{{ ai_gen_id }} {
+    top: 40%;
+    right: 20%;
+    width: 40px;
+    height: 40px;transform: rotate(45deg);
+  }
+
+  @media screen and (max-width: 749px) {
+    .cozy-banner__container-{{ ai_gen_id }} {
+      flex-direction: column-reverse;
+    }
+
+    .cozy-banner__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
+    }
+
+    .cozy-banner__subheading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.text_size | times: 0.9 }}px;
+    }
+
+    .cozy-banner__image-wrapper-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<div class="cozy-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_decorations %}
+    <svg class="cozy-banner__decoration-{{ ai_gen_id }} cozy-banner__decoration-book1-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="{{ block.settings.decoration_color }}">
+      <path d="M21,5c-1.11-0.35-2.33-0.5-3.5-0.5c-1.95,0-4.05,0.4-5.5,1.5c-1.45-1.1-3.55-1.5-5.5-1.5S2.45,4.9,1,6v14.65 c0,0.25,0.25,0.5,0.5,0.5c0.1,0,0.15-0.05,0.25-0.05C3.1,20.45,5.05,20,6.5,20c1.95,0,4.05,0.4,5.5,1.5c1.35-0.85,3.8-1.5,5.5-1.5 c1.65,0,3.35,0.3,4.75,1.05c0.1,0.05,0.15,0.05,0.25,0.05c0.25,0,0.5-0.25,0.5-0.5V6C22.4,5.55,21.75,5.25,21,5z M21,18.5 c-1.1-0.35-2.3-0.5-3.5-0.5c-1.7,0-4.15,0.65-5.5,1.5V8c1.35-0.85,3.8-1.5,5.5-1.5c1.2,0,2.4,0.15,3.5,0.5V18.5z"/>
+    </svg>
+    <svg class="cozy-banner__decoration-{{ ai_gen_id }} cozy-banner__decoration-book2-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="{{ block.settings.decoration_color }}">
+      <path d="M18,2H6C4.9,2,4,2.9,4,4v16c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C20,2.9,19.1,2,18,2z M6,4h5v8l-2.5-1.5L6,12V4z"/>
+    </svg>
+    <svg class="cozy-banner__decoration-{{ ai_gen_id }} cozy-banner__decoration-leaf-{{ ai_gen_id }}" viewBox="0 0 24 24" fill="{{ block.settings.decoration_color }}">
+      <path d="M6.05,8.05c-2.73,2.73-2.73,7.17,0,9.9C7.42,19.32,9.21,20,11,20s3.58-0.68,4.95-2.05C19.32,14.58,20,7,20,7 S12.42,4.68,9.05,8.05z M13.54,16.54c-1.37,1.37-3.58,1.37-4.95,0c-1.37-1.37-1.37-3.58,0-4.95c1.37-1.37,3.58-1.37,4.95,0 C14.9,12.96,14.9,15.17,13.54,16.54z"/>
+    </svg>
+  {% endif %}
+
+  <div class="cozy-banner__container-{{ ai_gen_id }}">
+    <div class="cozy-banner__content-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="cozy-banner__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      
+      {% if block.settings.subheading != blank %}
+        <div class="cozy-banner__subheading-{{ ai_gen_id }}">{{ block.settings.subheading }}</div>
+      {% endif %}
+      
+      {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+        <a href="{{ block.settings.button_link }}" class="cozy-banner__button-{{ ai_gen_id }}">
+          {{ block.settings.button_label }}
+        </a>
+      {% endif %}
+    </div><div class="cozy-banner__image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.image %}
+        <img 
+          src="{{ block.settings.image | image_url: width: 800 }}"
+          alt="{{ block.settings.image.alt | escape }}"
+          loading="lazy"
+          class="cozy-banner__image-{{ ai_gen_id }}"
+          width="{{ block.settings.image.width }}"
+          height="{{ block.settings.image.height }}"
+        >
+      {% else %}
+        <div class="cozy-banner__image-placeholder-{{ ai_gen_id }}">
+          {{ 'image' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Cozy Bookshop Banner",
+  "tag": null,
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to our Cozy Bookshop"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Discover a world of stories in our warm and inviting space. From local Filipino literature to international bestsellers, we have something for every reader.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Browse Books"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "row",
+          "label": "Text left, image right"
+        },
+        {
+          "value": "row-reverse",
+          "label": "Image left, text right"
+        }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFF8F0"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#5E3023"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#6B4F3C"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#A45C40"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#8B4C35"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Decorative Elements"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_decorations",
+      "label": "Show book decorations",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "decoration_color",
+      "label": "Decoration color",
+      "default": "#A45C40"
+    },
+    {
+      "type": "range",
+      "id": "decoration_opacity",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "%",
+      "label": "Decoration opacity",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Borders"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Banner border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 6
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cozy Bookshop Banner"
+    }
+  ]
+}
 {% endschema %}
