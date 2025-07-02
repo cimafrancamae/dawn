@@ -30,6 +30,7 @@
         },
         "button": {
           "type": "buttons",
+          "disabled": true,
           "settings": {
             "button_label_1": "Discover Dan Brown's Thrilling Collection at The Little Bookshop PH",
             "button_link_1": "shopify://collections/all",
@@ -46,10 +47,10 @@
         "button"
       ],
       "settings": {
-        "image": "shopify://shop_images/dan-brown-collection-homepage-banner.png",
+        "image_2": "shopify://shop_images/new-book-releases-header-banner.png",
         "image_overlay_opacity": 40,
-        "image_height": "adapt",
-        "image_behavior": "none",
+        "image_height": "large",
+        "image_behavior": "zoom-in",
         "desktop_content_position": "middle-center",
         "desktop_content_alignment": "center",
         "show_text_box": false,
