@@ -1,6 +1,444 @@
+{% doc %}
+  @prompt
+    Create a promotional homepage hero banner showcasing best-selling books with book cover image placeholders, featured titles, and promotional text. Include sections for highlighting multiple bestsellers, special pricing or offers, and a prominent call-to-action button. Design should be eye-catching with a bookshop aesthetic, warm colors, and space for book imagery that encourages browsing and purchasing., fill it with my best selling products
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .bestseller-banner-{{ ai_gen_id }} {
+    position: relative;
+    padding: 40px 20px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .bestseller-banner__container-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .bestseller-banner__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .bestseller-banner__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .bestseller-banner__subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    color: {{ block.settings.text_color }};
+    max-width: 800px;
+    margin: 0 auto20px;
+  }
+
+  .bestseller-banner__promotion-{{ ai_gen_id }} {
+    display: inline-block;
+    background-color: {{ block.settings.promotion_bg_color }};
+    color: {{ block.settings.promotion_text_color }};
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .bestseller-banner__products-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .bestseller-banner__product-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bestseller-banner__product-image-container-{{ ai_gen_id }} {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
+    margin-bottom: 15px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    overflow: hidden;transition: transform 0.3s ease;
+  }
+
+  .bestseller-banner__product-image-container-{{ ai_gen_id }}:hover {
+    transform: translateY(-5px);
+  }
+
+  .bestseller-banner__product-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bestseller-banner__product-image-placeholder-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ block.settings.placeholder_bg_color }};
+  }
+
+  .bestseller-banner__product-image-placeholder-{{ ai_gen_id }} svg {
+    width: 50%;
+    height: 50%;
+    fill: rgba(255, 255, 255, 0.2);
+  }
+
+  .bestseller-banner__product-title-{{ ai_gen_id }} {
+    font-weight: 600;
+    font-size: 16px;
+    color: {{ block.settings.text_color }};
+    margin-bottom: 5px;
+  }
+
+  .bestseller-banner__product-vendor-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+
+  .bestseller-banner__product-price-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .bestseller-banner__product-price-original-{{ ai_gen_id }} {
+    text-decoration: line-through;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    font-size: 14px;
+  }
+
+  .bestseller-banner__product-price-current-{{ ai_gen_id }} {
+    font-weight: 700;
+    color: {{ block.settings.price_color }};
+    font-size: 16px;
+  }
+
+  .bestseller-banner__cta-container-{{ ai_gen_id }} {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .bestseller-banner__cta-{{ ai_gen_id }} {
+    display: inline-block;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    padding: 15px 30px;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bestseller-banner__cta-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  @media screen and (max-width: 990px) {
+    .bestseller-banner__products-{{ ai_gen_id }} {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .bestseller-banner__products-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+    
+    .bestseller-banner__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.8 }}px;
+    }
+    
+    .bestseller-banner__subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheading_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="bestseller-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="bestseller-banner__container-{{ ai_gen_id }}">
+    <div class="bestseller-banner__header-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="bestseller-banner__title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.subheading != blank %}
+        <div class="bestseller-banner__subtitle-{{ ai_gen_id }}">{{ block.settings.subheading }}</div>
+      {% endif %}
+      
+      {% if block.settings.promotion_text != blank %}
+        <div class="bestseller-banner__promotion-{{ ai_gen_id }}">{{ block.settings.promotion_text }}</div>
+      {% endif %}
+    </div><div class="bestseller-banner__products-{{ ai_gen_id }}">
+      {% if block.settings.collection != blank %}
+        {% assign product_limit = 4 %}
+        {% for product in block.settings.collection.products limit: product_limit %}
+          <div class="bestseller-banner__product-{{ ai_gen_id }}">
+            <a href="{{ product.url }}" class="bestseller-banner__product-image-container-{{ ai_gen_id }}">
+              {% if product.featured_image %}
+                <img 
+                  src="{{ product.featured_image | image_url: width: 300 }}"
+                  alt="{{ product.title }}"
+                  class="bestseller-banner__product-image-{{ ai_gen_id }}"
+                  loading="lazy"width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                >
+              {% else %}
+                <div class="bestseller-banner__product-image-placeholder-{{ ai_gen_id }}">
+                  {{ 'product-1' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </a><a href="{{ product.url }}" class="bestseller-banner__product-title-{{ ai_gen_id }}">{{ product.title }}</a>
+            
+            {% if product.vendor != blank and block.settings.show_vendor %}
+              <div class="bestseller-banner__product-vendor-{{ ai_gen_id }}">{{ product.vendor }}</div>
+            {% endif %}
+            
+            <div class="bestseller-banner__product-price-{{ ai_gen_id }}">
+              {% if product.compare_at_price > product.price %}
+                <span class="bestseller-banner__product-price-original-{{ ai_gen_id }}">{{ product.compare_at_price | money }}</span>
+              {% endif %}
+              
+              <span class="bestseller-banner__product-price-current-{{ ai_gen_id }}">{{ product.price | money }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="bestseller-banner__product-{{ ai_gen_id }}">
+            <div class="bestseller-banner__product-image-container-{{ ai_gen_id }}">
+              <div class="bestseller-banner__product-image-placeholder-{{ ai_gen_id }}">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            </div>
+            <div class="bestseller-banner__product-title-{{ ai_gen_id }}">Product Title</div>
+            <div class="bestseller-banner__product-vendor-{{ ai_gen_id }}">Vendor</div>
+            <div class="bestseller-banner__product-price-{{ ai_gen_id }}">
+              <span class="bestseller-banner__product-price-current-{{ ai_gen_id }}">$19.99</span>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+      <div class="bestseller-banner__cta-container-{{ ai_gen_id }}">
+        <a href="{{ block.settings.button_link }}" class="bestseller-banner__cta-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Bestselling Products",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Bestsellers"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover our most popular products loved by customers everywhere"
+    },
+    {
+      "type": "text",
+      "id": "promotion_text",
+      "label": "Promotion text",
+      "default": "Limited Time: 20% Off All Bestsellers"
+    },
+    {
+      "type": "header",
+      "content": "Product Selection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a collection to display its products. Only the first 4 products will be shown."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop All Bestsellers"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F9F5F0"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#D2691E"
+    },
+    {
+      "type": "color",
+      "id": "promotion_bg_color",
+      "label": "Promotion background",
+      "default": "#D2691E"
+    },
+    {
+      "type": "color",
+      "id": "promotion_text_color",
+      "label": "Promotion text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_bg_color",
+      "label": "Placeholder background",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Banner border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {"value": "1", "label": "1"},
+        {"value": "2", "label": "2"}
+      ],
+      "default": "2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bestselling Products"
+    }
+  ]
+}
 {% endschema %}
