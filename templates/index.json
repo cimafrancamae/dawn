@@ -46,6 +46,7 @@
         "text",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image_2": "shopify://shop_images/new-book-releases-header-banner-fixed.png",
         "image_overlay_opacity": 40,
@@ -93,6 +94,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "all",
         "products_to_show": 5,
