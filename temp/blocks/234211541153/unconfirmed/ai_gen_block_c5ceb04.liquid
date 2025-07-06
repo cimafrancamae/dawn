@@ -1,6 +1,355 @@
+{% doc %}
+  @prompt
+    Create a footer section with 3 columns: first column for "The Little Bookshop Mission" with mission statement text, second column for "Customer Service" with links to FAQ, Exchanges & Returns, and Contact Us, and third column for "About Us" with links to Who We Are, Sell With Us, Sustainability Strategy, Terms & Conditions, and Privacy Policy. Make it responsive and styled to match a bookshop aesthetic.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .footer-block-{{ ai_gen_id }} {
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    padding: 60px 20px;
+    font-family: var(--type-body-font);
+  }
+
+  .footer-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .footer-column-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-heading-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: {{ block.settings.heading_color }};
+    font-family: var(--type-header-font);
+    position: relative;
+    padding-bottom: 10px;
+  }
+
+  .footer-heading-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: {{ block.settings.accent_color }};
+  }
+
+  .footer-mission-{{ ai_gen_id }} {
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  .footer-links-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .footer-link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    transition: color 0.3s ease;
+    line-height: 1.6;
+  }
+
+  .footer-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+    text-decoration: underline;
+  }
+
+  .footer-bottom-{{ ai_gen_id }} {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid {{ block.settings.divider_color }};
+    text-align: center;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .footer-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .footer-heading-{{ ai_gen_id }} {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .footer-bottom-{{ ai_gen_id }} {
+      margin-top: 30px;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 991px) {
+    .footer-container-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-column-{{ ai_gen_id }}:first-child {
+      grid-column: span 2;
+    }
+  }
+{% endstyle %}
+
+<div class="footer-block-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="footer-container-{{ ai_gen_id }}">
+    <div class="footer-column-{{ ai_gen_id }}">
+      <h3 class="footer-heading-{{ ai_gen_id }}">{{ block.settings.mission_heading }}</h3>
+      <div class="footer-mission-{{ ai_gen_id }}">{{ block.settings.mission_text }}</div>
+    </div>
+
+    <div class="footer-column-{{ ai_gen_id }}">
+      <h3 class="footer-heading-{{ ai_gen_id }}">{{ block.settings.service_heading }}</h3>
+      <div class="footer-links-{{ ai_gen_id }}">
+        {% if block.settings.service_link_1_text != blank and block.settings.service_link_1_url != blank %}
+          <a href="{{ block.settings.service_link_1_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.service_link_1_text }}</a>
+        {% endif %}
+        
+        {% if block.settings.service_link_2_text != blank and block.settings.service_link_2_url != blank %}
+          <a href="{{ block.settings.service_link_2_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.service_link_2_text }}</a>
+        {% endif %}
+        
+        {% if block.settings.service_link_3_text != blank and block.settings.service_link_3_url != blank %}
+          <a href="{{ block.settings.service_link_3_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.service_link_3_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer-column-{{ ai_gen_id }}">
+      <h3 class="footer-heading-{{ ai_gen_id }}">{{ block.settings.about_heading }}</h3>
+      <div class="footer-links-{{ ai_gen_id }}">
+        {% if block.settings.about_link_1_text != blank and block.settings.about_link_1_url != blank %}
+          <a href="{{ block.settings.about_link_1_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.about_link_1_text }}</a>
+        {% endif %}
+        
+        {% if block.settings.about_link_2_text != blank and block.settings.about_link_2_url != blank %}
+          <a href="{{ block.settings.about_link_2_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.about_link_2_text }}</a>
+        {% endif %}
+        
+        {% if block.settings.about_link_3_text != blank and block.settings.about_link_3_url != blank %}
+          <a href="{{ block.settings.about_link_3_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.about_link_3_text }}</a>
+        {% endif %}
+        
+        {% if block.settings.about_link_4_text != blank and block.settings.about_link_4_url != blank %}
+          <a href="{{ block.settings.about_link_4_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.about_link_4_text }}</a>
+        {% endif %}
+        
+        {% if block.settings.about_link_5_text != blank and block.settings.about_link_5_url != blank %}
+          <a href="{{ block.settings.about_link_5_url }}" class="footer-link-{{ ai_gen_id }}">{{ block.settings.about_link_5_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-bottom-{{ ai_gen_id }}">
+    {{ block.settings.copyright_text }}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Bookshop Footer",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Column 1 - Mission"
+    },
+    {
+      "type": "text",
+      "id": "mission_heading",
+      "label": "Mission heading",
+      "default": "The Little Bookshop Mission"
+    },
+    {
+      "type": "richtext",
+      "id": "mission_text",
+      "label": "Mission text",
+      "default": "<p>At The Little Bookshop, we believe in the transformative power of books. Our mission is to curate thoughtful collections that inspire, educate, and entertain readers of all ages, while creating a warm, welcoming space for our community to discover new literary treasures.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Column 2 - Customer Service"
+    },
+    {
+      "type": "text",
+      "id": "service_heading",
+      "label": "Service heading",
+      "default": "Customer Service"
+    },
+    {
+      "type": "text",
+      "id": "service_link_1_text",
+      "label": "Link 1 text",
+      "default": "FAQ"
+    },
+    {
+      "type": "url",
+      "id": "service_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "service_link_2_text",
+      "label": "Link 2 text",
+      "default": "Exchanges & Returns"
+    },
+    {
+      "type": "url",
+      "id": "service_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "service_link_3_text",
+      "label": "Link 3 text",
+      "default": "Contact Us"
+    },
+    {
+      "type": "url",
+      "id": "service_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "header",
+      "content": "Column 3 - About Us"
+    },
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "About heading",
+      "default": "About Us"
+    },
+    {
+      "type": "text",
+      "id": "about_link_1_text",
+      "label": "Link 1 text",
+      "default": "Who We Are"
+    },
+    {
+      "type": "url",
+      "id": "about_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "about_link_2_text",
+      "label": "Link 2 text",
+      "default": "Sell With Us"
+    },
+    {
+      "type": "url",
+      "id": "about_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "about_link_3_text",
+      "label": "Link 3 text",
+      "default": "Sustainability Strategy"
+    },
+    {
+      "type": "url",
+      "id": "about_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "about_link_4_text",
+      "label": "Link 4 text",
+      "default": "Terms & Conditions"
+    },
+    {
+      "type": "url",
+      "id": "about_link_4_url",
+      "label": "Link 4 URL"
+    },
+    {
+      "type": "text",
+      "id": "about_link_5_text",
+      "label": "Link 5 text",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "url",
+      "id": "about_link_5_url",
+      "label": "Link 5 URL"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2023 The Little Bookshop. All rights reserved."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f5f0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#4a4a4a"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#8b5a2b"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#8b5a2b"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#e0e0e0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bookshop Footer"
+    }
+  ]
+}
 {% endschema %}
