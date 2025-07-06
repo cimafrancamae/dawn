@@ -506,6 +506,7 @@
       "block_order": [
         "ai_gen_block_c5ceb04_izfhUj"
       ],
+      "disabled": true,
       "settings": {}
     }
   },
