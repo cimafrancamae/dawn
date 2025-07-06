@@ -1,6 +1,338 @@
+{% doc %}
+  @prompt
+    Create an engaging homepage banner featuring the book "Still Me" by Jojo Moyes. The banner should include the book cover image displayed in full without any background color or shadow effects - show the complete book cover image as-is. Include compelling promotional text, a call-to-action button to shop the book, and be designed to capture visitor attention and drive engagement. Make it visually appealing with customizable colors, fonts, and layout options.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .book-banner-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: {{ block.settings.layout_direction }};
+    align-items: center;
+    justify-content: space-between;
+    background-color: {{ block.settings.background_color }};
+    color: {{ block.settings.text_color }};
+    padding: {{ block.settings.padding }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    max-width: 100%;
+    gap: 30px;
+  }
+
+  .book-banner-content-{{ ai_gen_id }} {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .book-banner-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: {{ block.settings.title_color }};
+    line-height: 1.2;
+  }
+
+  .book-banner-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .book-banner-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    margin-bottom: 25px;
+    line-height: 1.6;
+  }
+
+  .book-banner-image-container-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.image_width }}px;
+    max-width: {{ block.settings.image_width }}px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .book-banner-image-{{ ai_gen_id }} {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .book-banner-button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .book-banner-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .book-banner-{{ ai_gen_id }} {
+      flex-direction: column-reverse;
+      padding: {{ block.settings.padding | divided_by: 1.5 }}px;
+      gap: 20px;
+    }
+
+    .book-banner-content-{{ ai_gen_id }} {
+      padding: 10px;
+    }
+
+    .book-banner-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .book-banner-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.8 }}px;
+    }
+
+    .book-banner-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.8 }}px;
+    }
+
+    .book-banner-image-container-{{ ai_gen_id }} {
+      flex: 0 0 auto;
+      max-width: 70%;
+    }
+  }
+{% endstyle %}
+
+<div class="book-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="book-banner-content-{{ ai_gen_id }}">
+    {% if block.settings.title != blank %}
+      <h2 class="book-banner-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+    {% endif %}
+    
+    {% if block.settings.subtitle != blank %}
+      <div class="book-banner-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+    {% endif %}
+    
+    {% if block.settings.description != blank %}
+      <div class="book-banner-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+    {% endif %}
+    
+    {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+      <a href="{{ block.settings.button_link }}" class="book-banner-button-{{ ai_gen_id }}">
+        {{ block.settings.button_text }}
+      </a>
+    {% endif %}
+  </div><div class="book-banner-image-container-{{ ai_gen_id }}">
+    {% if block.settings.book_image %}
+      <img 
+        src="{{ block.settings.book_image | image_url: width: 600 }}"
+        alt="{{ block.settings.book_image.alt | default: block.settings.title }}"
+        class="book-banner-image-{{ ai_gen_id }}"
+        width="{{ block.settings.book_image.width }}"
+        height="{{ block.settings.book_image.height }}"
+        loading="lazy"
+      >
+    {% else %}
+      <div class="book-banner-image-placeholder-{{ ai_gen_id }}">
+        {{ 'image' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Book Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "book_image",
+      "label": "Book cover image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Still Me by Jojo Moyes"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "The third book in the heartwarming Me Before You series"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover what happens to Lou Clark in this moving conclusion to the story that began with the worldwide phenomenon Me Before You."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Layout direction",
+      "options": [
+        {
+          "value": "row",
+          "label": "Text left, image right"
+        },
+        {
+          "value": "row-reverse",
+          "label": "Image left, text right"
+        }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Image width",
+      "default": 300
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f7f2"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#4a6b8a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#3a5a79"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Banner"
+    }
+  ],
+  "tag": null
+}
 {% endschema %}
