@@ -47,7 +47,7 @@
         "button"
       ],
       "settings": {
-        "image_2": "shopify://shop_images/refined-vibrant-landscape-banner-for-the-little-bookshop-ph.png",
+        "image_2": "shopify://shop_images/TLB_Hero.png",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "image_behavior": "zoom-in",
@@ -415,6 +415,47 @@
         "ai_gen_block_de8a021_HqWeGh"
       ],
       "settings": {}
+    },
+    "collection_list_8BUeKM": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_Q6ikwp": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_34kBx9": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_cFUrfp": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_Q6ikwp",
+        "featured_collection_34kBx9",
+        "featured_collection_cFUrfp"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -428,6 +469,7 @@
     "1751438609ac26578b",
     "featured_collection_7LMp7x",
     "1751775900bbb1b912",
-    "1751776640bccffc41"
+    "1751776640bccffc41",
+    "collection_list_8BUeKM"
   ]
 }
