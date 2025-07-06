@@ -333,6 +333,52 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "1751775900bbb1b912": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ddd8a48_7wGPfU": {
+          "type": "ai_gen_block_ddd8a48",
+          "settings": {
+            "book_cover": "shopify://shop_images/0002-2639580267966300806.png",
+            "title": "Still Me",
+            "subtitle": "<p>by Jojo Moyes</p>",
+            "description": "<p>The third book in the beloved Me Before You series. Follow Louisa Clark as she navigates life in New York City, discovering who she really is and what she truly wants.</p>",
+            "button_text": "Shop Now",
+            "button_link": "",
+            "show_badge": true,
+            "badge_text": "Bestseller",
+            "layout": "image_right",
+            "padding_top": 60,
+            "padding_bottom": 60,
+            "padding_horizontal": 40,
+            "border_radius": 12,
+            "heading_font": "assistant_n4",
+            "body_font": "assistant_n4",
+            "title_size": 48,
+            "subtitle_size": 20,
+            "text_size": 16,
+            "button_text_size": 16,
+            "background_color": "#f7f7f7",
+            "background_gradient_color": "#efefef",
+            "accent_color": "#4a4a4a",
+            "title_color": "#2c2c2c",
+            "subtitle_color": "#5c5c5c",
+            "text_color": "#4a4a4a",
+            "badge_color": "#9a8c98",
+            "badge_text_color": "#ffffff",
+            "button_color": "#4a4a4a",
+            "button_hover_color": "#2c2c2c",
+            "button_text_color": "#ffffff",
+            "button_border_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ddd8a48_7wGPfU"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -344,6 +390,7 @@
     "multicolumn",
     "1751438314030f8628",
     "1751438609ac26578b",
-    "featured_collection_7LMp7x"
+    "featured_collection_7LMp7x",
+    "1751775900bbb1b912"
   ]
 }
