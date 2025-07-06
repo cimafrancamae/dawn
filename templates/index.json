@@ -48,7 +48,7 @@
       ],
       "settings": {
         "image_2": "shopify://shop_images/TLB_Hero.png",
-        "image_overlay_opacity": 40,
+        "image_overlay_opacity": 0,
         "image_height": "large",
         "image_behavior": "zoom-in",
         "desktop_content_position": "middle-center",
