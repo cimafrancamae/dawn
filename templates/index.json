@@ -464,6 +464,49 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "1751806073898d73cc": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_c5ceb04_izfhUj": {
+          "type": "ai_gen_block_c5ceb04",
+          "settings": {
+            "mission_heading": "The Little Bookshop Mission",
+            "mission_text": "<p>At The Little Bookshop, we believe in the transformative power of books. Our mission is to curate thoughtful collections that inspire, educate, and entertain readers of all ages, while creating a warm, welcoming space for our community to discover new literary treasures.</p>",
+            "service_heading": "Customer Service",
+            "service_link_1_text": "FAQ",
+            "service_link_1_url": "",
+            "service_link_2_text": "Exchanges & Returns",
+            "service_link_2_url": "",
+            "service_link_3_text": "Contact Us",
+            "service_link_3_url": "",
+            "about_heading": "About Us",
+            "about_link_1_text": "Who We Are",
+            "about_link_1_url": "",
+            "about_link_2_text": "Sell With Us",
+            "about_link_2_url": "",
+            "about_link_3_text": "Sustainability Strategy",
+            "about_link_3_url": "",
+            "about_link_4_text": "Terms & Conditions",
+            "about_link_4_url": "",
+            "about_link_5_text": "Privacy Policy",
+            "about_link_5_url": "",
+            "copyright_text": "© 2023 The Little Bookshop. All rights reserved.",
+            "background_color": "#f8f5f0",
+            "text_color": "#333333",
+            "heading_color": "#2a2a2a",
+            "link_color": "#4a4a4a",
+            "link_hover_color": "#8b5a2b",
+            "accent_color": "#8b5a2b",
+            "divider_color": "#e0e0e0"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_c5ceb04_izfhUj"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -478,6 +521,7 @@
     "featured_collection_7LMp7x",
     "1751775900bbb1b912",
     "1751776640bccffc41",
-    "collection_list_8BUeKM"
+    "collection_list_8BUeKM",
+    "1751806073898d73cc"
   ]
 }
