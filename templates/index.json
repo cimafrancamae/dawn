@@ -379,6 +379,42 @@
         "ai_gen_block_ddd8a48_7wGPfU"
       ],
       "settings": {}
+    },
+    "1751776640bccffc41": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_de8a021_HqWeGh": {
+          "type": "ai_gen_block_de8a021",
+          "settings": {
+            "book_image": "shopify://shop_images/0002-2639580267966300806.png",
+            "title": "Still Me by Jojo Moyes",
+            "subtitle": "The third book in the heartwarming Me Before You series",
+            "description": "Discover what happens to Lou Clark in this moving conclusion to the story that began with the worldwide phenomenon Me Before You.",
+            "button_text": "Buy Now",
+            "button_link": "shopify://products/still-me-by-jojo-moyes-paperback-edition",
+            "layout_direction": "row",
+            "padding": 40,
+            "border_radius": 8,
+            "image_width": 300,
+            "background_color": "#f8f7f2",
+            "text_color": "#333333",
+            "title_color": "#1a1a1a",
+            "button_color": "#4a6b8a",
+            "button_hover_color": "#3a5a79",
+            "button_text_color": "#ffffff",
+            "title_size": 36,
+            "subtitle_size": 20,
+            "description_size": 16,
+            "button_text_size": 16,
+            "button_border_radius": 4
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_de8a021_HqWeGh"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -391,6 +427,7 @@
     "1751438314030f8628",
     "1751438609ac26578b",
     "featured_collection_7LMp7x",
-    "1751775900bbb1b912"
+    "1751775900bbb1b912",
+    "1751776640bccffc41"
   ]
 }
