@@ -32,7 +32,7 @@
           "type": "link_list",
           "settings": {
             "heading": "ABOUT US",
-            "menu": "footer"
+            "menu": "about-us"
           }
         }
       },
