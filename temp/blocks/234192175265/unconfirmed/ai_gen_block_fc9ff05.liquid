@@ -1,6 +1,518 @@
+{% doc %}
+  @prompt
+    Create an engaging homepage banner featuring the book "Still Me" by Jojo Moyes. The banner should include the book cover image, compelling promotional text, a call-to-action button to shop the book, and be designed to capture visitor attention and drive engagement. Make it visually appealing with customizable colors, fonts, and layout options.
+
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-book-banner-{{ ai_gen_id }} {
+    position: relative;
+    background: {{ block.settings.background_color }};
+    background: linear-gradient(135deg, {{ block.settings.background_color }} 0%, {{ block.settings.background_gradient_color }} 100%);
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ai-book-banner-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:60px;
+    align-items: center;
+  }
+
+  .ai-book-banner-content-{{ ai_gen_id }} {
+    {% if block.settings.layout == 'image_left' %}
+      order: 2;
+    {% endif %}
+  }
+
+  .ai-book-banner-image-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    {% if block.settings.layout == 'image_left' %}
+      order: 1;
+    {% endif %}
+  }
+
+  .ai-book-banner-image-{{ ai_gen_id }} {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .ai-book-banner-image-{{ ai_gen_id }}:hover {
+    transform: translateY(-5px);
+  }
+
+  .ai-book-banner-image-placeholder-{{ ai_gen_id }} {
+    max-width: 300px;
+    width: 100%;
+    height: 400px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-book-banner-image-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.6;
+  }
+
+  .ai-book-banner-badge-{{ ai_gen_id }} {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: {{ block.settings.badge_color }};
+    color: {{ block.settings.badge_text_color }};
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-book-banner-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.title_size }}px;
+    line-height: 1.2;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 16px;}
+
+  .ai-book-banner-subtitle-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 00 24px;line-height: 1.4;
+  }
+
+  .ai-book-banner-description-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.text_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    margin: 0 0 32px;
+  }
+
+  .ai-book-banner-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    background-color: {{ block.settings.button_color }};
+    color: {{ block.settings.button_text_color }};
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: 600;
+    font-size: {{ block.settings.button_text_size }}px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;}
+
+  .ai-book-banner-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_color }};transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-book-banner-decorative-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, {{ block.settings.accent_color }}200%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 990px) {
+    .ai-book-banner-container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;gap: 40px;
+      text-align: center;
+    }
+
+    .ai-book-banner-content-{{ ai_gen_id }},
+    .ai-book-banner-image-wrapper-{{ ai_gen_id }} {
+      order: unset;
+    }
+
+    .ai-book-banner-image-wrapper-{{ ai_gen_id }} {
+      order: 1;
+    }
+
+    .ai-book-banner-content-{{ ai_gen_id }} {
+      order: 2;
+    }
+
+    .ai-book-banner-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-book-banner-subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-book-banner-{{ ai_gen_id }} {
+      padding: {{ block.settings.padding_top | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px {{ block.settings.padding_bottom | times: 0.7 }}px;
+    }
+
+    .ai-book-banner-container-{{ ai_gen_id }} {
+      gap: 30px;
+    }
+
+    .ai-book-banner-image-{{ ai_gen_id }},
+    .ai-book-banner-image-placeholder-{{ ai_gen_id }} {
+      max-width: 250px;
+    }
+
+    .ai-book-banner-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.7 }}px;
+    }
+
+    .ai-book-banner-button-{{ ai_gen_id }} {
+      padding: 14px 28px;font-size: {{ block.settings.button_text_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-book-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-book-banner-decorative-{{ ai_gen_id }}"></div>
+  
+  <div class="ai-book-banner-container-{{ ai_gen_id }}">
+    <div class="ai-book-banner-content-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h2 class="ai-book-banner-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+
+      {% if block.settings.subtitle != blank %}
+        <div class="ai-book-banner-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+      {% endif %}
+
+      {% if block.settings.description != blank %}
+        <div class="ai-book-banner-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+
+      {% if block.settings.button_text != blank %}
+        <a href="{{ block.settings.button_link }}" class="ai-book-banner-button-{{ ai_gen_id }}">
+          {{ block.settings.button_text }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ai-book-banner-image-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.show_badge and block.settings.badge_text != blank %}
+        <div class="ai-book-banner-badge-{{ ai_gen_id }}">{{ block.settings.badge_text }}</div>
+      {% endif %}
+
+      {% if block.settings.book_cover %}
+        <img
+          src="{{ block.settings.book_cover | image_url: width: 600}}"
+          alt="{{ block.settings.book_cover.alt | escape }}"
+          loading="lazy"
+          width="{{ block.settings.book_cover.width }}"
+          height="{{ block.settings.book_cover.height }}"
+          class="ai-book-banner-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <div class="ai-book-banner-image-placeholder-{{ ai_gen_id }}">
+          {{ 'product-apparel-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Book Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "book_cover",
+      "label": "Book cover image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Still Me"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>by Jojo Moyes</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>The third book in the beloved Me Before You series. Follow Louisa Clark as she navigates life in New York City, discovering who she really is and what she truly wants.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Bestseller"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "image_right",
+          "label": "Right"
+        },
+        {
+          "value": "image_left",
+          "label": "Left"
+        }
+      ],
+      "default": "image_right"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Horizontal padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "background_gradient_color",
+      "label": "Background gradient color",
+      "default": "#e9ecef"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#6f42c1"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#212529"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#6c757d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#495057"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Badge background color",
+      "default": "#dc3545"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#007bff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Button hover color",
+      "default": "#0056b3"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Book Banner"
+    }
+  ],
+  "tag": null,
+  "class": "book-banner-block"
+}
 {% endschema %}
