@@ -46,9 +46,8 @@
         "text",
         "button"
       ],
-      "disabled": true,
       "settings": {
-        "image_2": "shopify://shop_images/new-book-releases-header-banner-fixed.png",
+        "image_2": "shopify://shop_images/refined-vibrant-landscape-banner-for-the-little-bookshop-ph.png",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "image_behavior": "zoom-in",
