@@ -17,23 +17,21 @@
         "footer-2": {
           "type": "text",
           "settings": {
-            "heading": "The Little Bookshop",
+            "heading": "THE LITTLE BOOKSHOP",
             "subtext": "<p>At The Little Bookshop, we believe in the transformative power of books. Our mission is to curate thoughtful collections that inspire, educate, and entertain readers of all ages, while creating a warm, welcoming space for our community to discover new literary treasures.</p>"
           }
         },
         "footer-0": {
           "type": "link_list",
-          "disabled": true,
           "settings": {
-            "heading": "Quick links",
+            "heading": "CUSTOMER SERVICE",
             "menu": "footer"
           }
         },
         "footer-1": {
           "type": "link_list",
-          "disabled": true,
           "settings": {
-            "heading": "Info",
+            "heading": "ABOUT US",
             "menu": "footer"
           }
         }
